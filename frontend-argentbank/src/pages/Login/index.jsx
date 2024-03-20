@@ -1,4 +1,3 @@
-import Header from '../../components/Header'
 import { useState } from 'react'
 import apiService from '../../__services__/apiService'
 import { useNavigate } from 'react-router-dom'
@@ -10,7 +9,7 @@ function Login() {
     document.title = 'Argent Bank - Login'
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [loading, setIsLoading] = useState(true)
+    const [loading, setIsLoading] = useState(false)
     const [user, setUser] = useState({ username: '', password: '' })
     const [msgErrorUsername, setMsgErrorUsername] = useState('')
     const [msgErrorPassword, setMsgErrorPassword] = useState('')
@@ -53,17 +52,18 @@ function Login() {
             apiService
                 .loginUser(user)
                 .then((token) => {
-                    if (token.success.token) {
+                    if (token.error) {
+                        setMsgErrorUser(
+                            'Sorry, the email address or password you entered is incorrect. Please check and try again.'
+                        )
+                    } else {
                         apiService
                             .readProfileUser(token.success.token)
                             .then((dataUser) => {
                                 dispatch(loginUserInfos(dataUser.success))
+                                navigate('/profile')
                             })
-                        navigate('/profile')
-                    } else {
-                        setMsgErrorUser(
-                            'Sorry, the email address or password you entered is incorrect. Please check and try again.'
-                        )
+                            .finally(() => setIsLoading(true))
                     }
                 })
                 .finally(() => setIsLoading(false))
@@ -83,45 +83,52 @@ function Login() {
     }
     return (
         <>
-            <Header />
-            <main className="main bg-dark">
-                <section className="sign-in-content">
-                    <i className="fa fa-user-circle sign-in-icon"></i>
-                    <h1>Sign In</h1>
-                    <form onSubmit={login}>
-                        <div className="input-wrapper">
-                            <label htmlFor="username">Username</label>
-                            <input
-                                type="text"
-                                id="username"
-                                name="username"
-                                autoComplete="username"
-                                value={user.username}
-                                onChange={onFieldChange}
-                            />
-                            <FieldError message={msgErrorUsername} />
-                        </div>
-                        <div className="input-wrapper">
-                            <label htmlFor="password">Password</label>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                autoComplete="current-password"
-                                value={user.password}
-                                onChange={onFieldChange}
-                            />
-                            <FieldError message={msgErrorPassword} />
-                        </div>
-                        <div className="input-remember">
-                            <input type="checkbox" id="remember-me" />
-                            <label htmlFor="remember-me">Remember me</label>
-                        </div>
-                        <FieldError message={msgErrorUser} />
-                        <button className="sign-in-button">Sign In</button>
-                    </form>
-                </section>
-            </main>
+            {loading === true ? (
+                <main className="main bg-dark">
+                    <section className="sign-in-content">
+                        <h2>Loading...</h2>
+                    </section>
+                </main>
+            ) : (
+                <main className="main bg-dark">
+                    <section className="sign-in-content">
+                        <i className="fa fa-user-circle sign-in-icon"></i>
+                        <h1>Sign In</h1>
+                        <form onSubmit={login}>
+                            <div className="input-wrapper">
+                                <label htmlFor="username">Username</label>
+                                <input
+                                    type="text"
+                                    id="username"
+                                    name="username"
+                                    autoComplete="username"
+                                    value={user.username}
+                                    onChange={onFieldChange}
+                                />
+                                <FieldError message={msgErrorUsername} />
+                            </div>
+                            <div className="input-wrapper">
+                                <label htmlFor="password">Password</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    autoComplete="current-password"
+                                    value={user.password}
+                                    onChange={onFieldChange}
+                                />
+                                <FieldError message={msgErrorPassword} />
+                            </div>
+                            <div className="input-remember">
+                                <input type="checkbox" id="remember-me" />
+                                <label htmlFor="remember-me">Remember me</label>
+                            </div>
+                            <FieldError message={msgErrorUser} />
+                            <button className="sign-in-button">Sign In</button>
+                        </form>
+                    </section>
+                </main>
+            )}
         </>
     )
 }

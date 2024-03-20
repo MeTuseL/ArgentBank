@@ -1,13 +1,11 @@
 import iconChat from '../../assets/icons/icon-chat.png'
 import iconMoney from '../../assets/icons/icon-money.png'
 import iconSecurity from '../../assets/icons/icon-security.png'
-import Header from '../../components/Header'
 
 function Home() {
     document.title = 'Argent Bank - Home Page'
     return (
         <>
-            <Header />
             <main>
                 <div className="hero">
                     <section className="hero-content">

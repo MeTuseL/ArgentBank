@@ -13,8 +13,8 @@ const apiService = {
                 }),
             })
             const result = await res.json()
-            if (result && result.body && result.body.token) {
-                return { success: result.body.token }
+            if (result && result.body) {
+                return { success: result.body }
             } else {
                 return { error: 'An error occurred' }
             }
@@ -24,14 +24,16 @@ const apiService = {
     },
     readProfileUser: async (token) => {
         try {
-            const res = await fetch('localhost:3001/api/v1/user/profile', {
-                method: 'POST',
-                headers: { Authorization: 'Bearer ' + token },
-            })
-            console.log(res)
+            const res = await fetch(
+                'http://localhost:3001/api/v1/user/profile',
+                {
+                    method: 'POST',
+                    headers: { Authorization: 'Bearer ' + token },
+                }
+            )
             const result = await res.json()
-            if (result && result.data) {
-                return { success: result.data }
+            if (result && result.body) {
+                return { success: result.body }
             } else {
                 return { error: 'An error occurred' }
             }
