@@ -1,11 +1,14 @@
 import Header from '../../components/Header'
-import { useState, useEffect } from 'react'
-import apiService from '../../services/apiService'
+import { useState } from 'react'
+import apiService from '../../__services__/apiService'
 import { useNavigate } from 'react-router-dom'
 import FieldError from '../../components/FieldError'
+import { useDispatch } from 'react-redux'
+import { loginUserInfos } from '../../__features__/userInfosSlice'
 
 function Login() {
     document.title = 'Argent Bank - Login'
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [loading, setIsLoading] = useState(true)
     const [user, setUser] = useState({ username: '', password: '' })
@@ -50,7 +53,12 @@ function Login() {
             apiService
                 .loginUser(user)
                 .then((token) => {
-                    if (token.success) {
+                    if (token.success.token) {
+                        apiService
+                            .readProfileUser(token.success.token)
+                            .then((dataUser) => {
+                                dispatch(loginUserInfos(dataUser.success))
+                            })
                         navigate('/profile')
                     } else {
                         setMsgErrorUser(
