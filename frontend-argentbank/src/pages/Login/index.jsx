@@ -3,7 +3,7 @@ import apiService from '../../__services__/apiService'
 import { useNavigate } from 'react-router-dom'
 import FieldError from '../../components/FieldError'
 import { useDispatch } from 'react-redux'
-import { loginUserInfos } from '../../__features__/userInfosSlice'
+import { loginUserInfos, tokenUser } from '../../__features__/userInfos'
 
 function Login() {
     document.title = 'Argent Bank - Login'
@@ -57,6 +57,8 @@ function Login() {
                             'Sorry, the email address or password you entered is incorrect. Please check and try again.'
                         )
                     } else {
+                        dispatch(tokenUser(token.success))
+
                         apiService
                             .readProfileUser(token.success.token)
                             .then((dataUser) => {

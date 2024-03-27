@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
 import logo from '../../../assets/logo/argentBankLogo.png'
-import { useSelector } from 'react-redux'
-import { selectUserInfos } from '../../../__features__/userInfosSlice'
-import { useDispatch } from 'react-redux'
-import { logOutUser } from '../../../__features__/userInfosSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectUserInfos } from '../../../__features__/userInfos'
+import { logOutUser } from '../../../__features__/userInfos'
 
 function Header() {
     const user = useSelector(selectUserInfos)
