@@ -1,4 +1,4 @@
-![ArgentBank](/ArgentBank/frontend-argentbank/src/assets/logo/argentBankLogo.png)
+![ArgentBank](./frontend-argentbank/src/assets/logo/argentBankLogo.png)
 
 # Argent Bank
 
@@ -61,7 +61,7 @@ Cloner le dépôt :
 
 ### 4.1 Configuration du back-end :
 
-- Suivre les intructions  du [README](/ArgentBank/backend-api-argentbank/README.md) dans le dossier "backend-api-argentbank"
+- Suivre les intructions  du [README](./backend-api-argentbank/README.md) dans le dossier "backend-api-argentbank"
 
 ### 4.2 Configuration du front-end :
 
@@ -82,15 +82,15 @@ Le front-end sera accessible sur le port 3002 :
 
 ### 5.1 Maquette
 
- - [Lien vers les maquettes](/ArgentBank/backend-api-argentbank/designs/)
+ - [Lien vers les maquettes](./backend-api-argentbank/designs/)
 
 ### 5.2 Swagger
 
-- [Swagger avec la fonctionnalité des transactions](/ArgentBank/frontend-argentbank/swagger.yaml)
+- [Swagger avec la fonctionnalité des transactions](./frontend-argentbank/swagger.yaml)
 
 ---
 
-![ArgentBank](/ArgentBank/frontend-argentbank/src/assets/logo/argentBankLogo.png)
+![ArgentBank](./frontend-argentbank/src/assets/logo/argentBankLogo.png)
 
 # Argent Bank
 
@@ -153,7 +153,7 @@ Clone the repository:
 
 ### 4.1 Back-end Configuration:
 
-- Follow the instructions in the [README](/ArgentBank/backend-api-argentbank/README.md) in the "backend-api-argentbank" folder.
+- Follow the instructions in the [README](./backend-api-argentbank/README.md) in the "backend-api-argentbank" folder.
 
 ### 4.2 Front-end Configuration:
 
@@ -174,8 +174,8 @@ The front-end will be accessible on port 3002:
 
 ### 5.1 Mockup
 
-- [Link to the mockups](/ArgentBank/backend-api-argentbank/designs/)
+- [Link to the mockups](./backend-api-argentbank/designs/)
 
 ### 5.2 Swagger
 
-- [Swagger with transaction functionality](/ArgentBank/frontend-argentbank/swagger.yaml)
+- [Swagger with transaction functionality](./frontend-argentbank/swagger.yaml)
