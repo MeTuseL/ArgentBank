@@ -13,6 +13,9 @@ const initialState = {
     tokenUser: {
         token: null,
     },
+    remember: {
+        checked: false,
+    },
 }
 export const userInfosSlice = createSlice({
     name: 'userInfos',
@@ -59,13 +62,26 @@ export const userInfosSlice = createSlice({
                 updatedAt: action.payload.updatedAt,
             }
         },
+        rememberUser: (state, action) => {
+            console.log(action.payload)
+            state.remember = {
+                ...state.remember,
+                checked: action.payload,
+            }
+        },
     },
 })
 
-export const { tokenUser, loginUserInfos, logOutUser, editUserInfos } =
-    userInfosSlice.actions
+export const {
+    tokenUser,
+    loginUserInfos,
+    logOutUser,
+    editUserInfos,
+    rememberUser,
+} = userInfosSlice.actions
 
 export const selectUserInfos = (state) => state.userInfos.user
 export const selectTokenUser = (state) => state.userInfos.tokenUser
+export const selectRememberUser = (state) => state.userInfos.remember
 
 export default userInfosSlice.reducer

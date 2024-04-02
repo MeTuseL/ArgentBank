@@ -1,19 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import apiService from '../../__services__/apiService'
 import { useNavigate } from 'react-router-dom'
 import FieldError from '../../components/FieldError'
-import { useDispatch } from 'react-redux'
-import { loginUserInfos, tokenUser } from '../../__features__/userInfos'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+    loginUserInfos,
+    tokenUser,
+    selectRememberUser,
+    rememberUser,
+} from '../../__features__/userInfos'
 
 function Login() {
     document.title = 'Argent Bank - Login'
+    const userRemember = useSelector(selectRememberUser)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [loading, setIsLoading] = useState(false)
-    const [user, setUser] = useState({ username: '', password: '' })
+    const [userInfos, setUserInfos] = useState({ username: '', password: '' })
     const [msgErrorUsername, setMsgErrorUsername] = useState('')
     const [msgErrorPassword, setMsgErrorPassword] = useState('')
     const [msgErrorUser, setMsgErrorUser] = useState('')
+    const [isChecked, setISChecked] = useState(false)
 
     //control field
     const reEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
@@ -45,12 +52,12 @@ function Login() {
         setMsgErrorUser('')
 
         if (
-            (constrolUsername(user.username) &&
-                controlPassword(user.password)) === true
+            (constrolUsername(userInfos.username) &&
+                controlPassword(userInfos.password)) === true
         ) {
             //api service
             apiService
-                .loginUser(user)
+                .loginUser(userInfos)
                 .then((token) => {
                     if (token.error) {
                         setMsgErrorUser(
@@ -58,10 +65,16 @@ function Login() {
                         )
                     } else {
                         dispatch(tokenUser(token.success))
+                        dispatch(rememberUser(isChecked))
 
                         apiService
                             .readProfileUser(token.success.token)
                             .then((dataUser) => {
+                                localStorage.setItem(
+                                    //storing email user
+                                    'username',
+                                    JSON.stringify(dataUser.success.email)
+                                )
                                 dispatch(loginUserInfos(dataUser.success))
                                 navigate('/profile')
                             })
@@ -70,19 +83,37 @@ function Login() {
                 })
                 .finally(() => setIsLoading(false))
         } else {
-            constrolUsername(user.username)
-            controlPassword(user.password)
+            constrolUsername(userInfos.username)
+            controlPassword(userInfos.password)
         }
     }
-
+    //onchange field
     const onFieldChange = (e) => {
-        //onchange field
-
         const { name, value } = e.target
-        const user_ = { ...user }
-        user_[name] = value
-        setUser(user_)
+        const userInfos_ = { ...userInfos }
+        userInfos_[name] = value
+        setUserInfos(userInfos_)
     }
+    //remember me
+    const [shouldUpdate, setSouldUpdate] = useState(true)
+    useEffect(() => {
+        if (shouldUpdate) {
+            const saveUser = localStorage.getItem('username')
+            if (saveUser && userRemember.checked === true) {
+                const userInfos_ = { ...userInfos }
+                userInfos_.username = saveUser.replace(/["']/g, '') //regex for remove `"` or `'`
+                setUserInfos(userInfos_)
+                setISChecked(userRemember.checked)
+                setSouldUpdate(false)
+            }
+        }
+    }, [userRemember, userInfos, shouldUpdate])
+
+    const onChecked = (e) => {
+        const { checked } = e.target
+        setISChecked(checked)
+    }
+
     return (
         <>
             {loading === true ? (
@@ -104,7 +135,7 @@ function Login() {
                                     id="username"
                                     name="username"
                                     autoComplete="username"
-                                    value={user.username}
+                                    value={userInfos.username}
                                     onChange={onFieldChange}
                                 />
                                 <FieldError message={msgErrorUsername} />
@@ -116,13 +147,18 @@ function Login() {
                                     id="password"
                                     name="password"
                                     autoComplete="current-password"
-                                    value={user.password}
+                                    value={userInfos.password}
                                     onChange={onFieldChange}
                                 />
                                 <FieldError message={msgErrorPassword} />
                             </div>
                             <div className="input-remember">
-                                <input type="checkbox" id="remember-me" />
+                                <input
+                                    type="checkbox"
+                                    id="remember-me"
+                                    checked={isChecked}
+                                    onChange={onChecked}
+                                />
                                 <label htmlFor="remember-me">Remember me</label>
                             </div>
                             <FieldError message={msgErrorUser} />
