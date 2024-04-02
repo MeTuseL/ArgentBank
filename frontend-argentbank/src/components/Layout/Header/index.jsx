@@ -4,8 +4,17 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectUserInfos } from '../../../__features__/userInfos'
 import { logOutUser } from '../../../__features__/userInfos'
 
+/**
+ * Component representing a header.
+ *
+ * @category Layout
+ * @component
+ * @returns  { JSX.Element } A React component that renders a header.
+ */
 function Header() {
+    // Get the user state to manage the header display type when the user is logged in or not
     const user = useSelector(selectUserInfos)
+    // Update the state when the user logs out
     const dispatch = useDispatch()
     return (
         <>

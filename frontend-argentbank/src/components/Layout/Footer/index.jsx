@@ -1,3 +1,10 @@
+/**
+ * Component representing a footer.
+ *
+ * @category Layout
+ * @component
+ * @returns  { JSX.Element } A React component that renders a footer.
+ */
 function Footer() {
     return (
         <>

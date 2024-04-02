@@ -8,6 +8,13 @@ import { useEffect, useState } from 'react'
 import apiService from '../../__services__/apiService'
 import { useNavigate } from 'react-router-dom'
 
+/**
+ * Component representing a user profile page with editable user information.
+ *
+ * @category Pages
+ * @component
+ * @returns  { JSX.Element } A React component that renders a user profile page.
+ */
 function Profile() {
     document.title = 'Argent Bank - Profile'
     const navigate = useNavigate()
@@ -19,13 +26,13 @@ function Profile() {
         firstName: '',
         lastName: '',
     })
-    //
+    // Redirect to homepage if user is not logged in
     useEffect(() => {
         if (user.connected === false) {
             navigate('/')
         }
     }, [navigate, user.connected])
-    //
+    // Update user information
     const saveChangeName = () => {
         apiService
             .updateProfileUser(userToken.token, userInfos)
@@ -34,9 +41,8 @@ function Profile() {
             })
             .finally(() => setIsEdit(false))
     }
-    //
+    // Handle form field changes
     const onFieldChange = (e) => {
-        //onchange field
         const { name, value } = e.target
         const userInfos_ = { ...userInfos }
         userInfos_[name] = value

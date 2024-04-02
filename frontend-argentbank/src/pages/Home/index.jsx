@@ -2,8 +2,17 @@ import iconChat from '../../assets/icons/icon-chat.png'
 import iconMoney from '../../assets/icons/icon-money.png'
 import iconSecurity from '../../assets/icons/icon-security.png'
 
+/**
+ * Component representing the home page of Argent Bank.
+ *
+ * This component renders information about the bank's features and services.
+ *
+ * @category Pages
+ * @component
+ * @returns  { JSX.Element } A React element representing the home page.
+ */
 function Home() {
-    document.title = 'Argent Bank - Home Page'
+    document.title = 'Argent Bank - Home'
     return (
         <>
             <main>

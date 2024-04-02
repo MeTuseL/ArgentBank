@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> pages/Profile/index.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">SportSee App - Documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Components</h2><h3>Components</h3><ul><li><a href="FieldError.html">FieldError</a></li><li><a href="Layout.html">Layout</a></li></ul></div><div class="category"><h2>Layout</h2><h3>Components</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Components</h3><ul><li><a href="ErrorPage.html">ErrorPage</a></li><li><a href="Home.html">Home</a></li><li><a href="Login.html">Login</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>Redux Reducer</h2><h3>Namespaces</h3><ul><li><a href="userInfosSlice.html">userInfosSlice</a></li></ul></div><div class="category"><h2>Redux Selector</h2><h3>Global</h3><ul><li><a href="global.html#selectRememberUser">selectRememberUser</a></li><li><a href="global.html#selectTokenUser">selectTokenUser</a></li><li><a href="global.html#selectUserInfos">selectUserInfos</a></li></ul></div><div class="category"><h2>Redux Slice</h2><h3>Namespaces</h3><ul><li><a href="userInfosSlice.html">userInfosSlice</a></li></ul></div><div class="category"><h2>Services</h2><h3>Namespaces</h3><ul><li><a href="ApiService.html">ApiService</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>pages/Profile/index.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useDispatch, useSelector } from 'react-redux'
+import {
+    editUserInfos,
+    selectTokenUser,
+    selectUserInfos,
+} from '../../__features__/userInfos'
+import { useEffect, useState } from 'react'
+import apiService from '../../__services__/apiService'
+import { useNavigate } from 'react-router-dom'
+
+/**
+ * Component representing a user profile page with editable user information.
+ *
+ * @category Pages
+ * @component
+ * @returns  { JSX.Element } A React component that renders a user profile page.
+ */
+function Profile() {
+    document.title = 'Argent Bank - Profile'
+    const navigate = useNavigate()
+    const user = useSelector(selectUserInfos)
+    const userToken = useSelector(selectTokenUser)
+    const dispatch = useDispatch()
+    const [isEdit, setIsEdit] = useState(false)
+    const [userInfos, setUserInfos] = useState({
+        firstName: '',
+        lastName: '',
+    })
+    // Redirect to homepage if user is not logged in
+    useEffect(() => {
+        if (user.connected === false) {
+            navigate('/')
+        }
+    }, [navigate, user.connected])
+    // Update user information
+    const saveChangeName = () => {
+        apiService
+            .updateProfileUser(userToken.token, userInfos)
+            .then((updateUser) => {
+                dispatch(editUserInfos(updateUser.success))
+            })
+            .finally(() => setIsEdit(false))
+    }
+    // Handle form field changes
+    const onFieldChange = (e) => {
+        const { name, value } = e.target
+        const userInfos_ = { ...userInfos }
+        userInfos_[name] = value
+        setUserInfos(userInfos_)
+    }
+
+    console.log(user)
+    return (
+        &lt;>
+            &lt;main className="main bg-dark">
+                {isEdit === false ? (
+                    &lt;div className="header">
+                        &lt;h1>
+                            Welcome back
+                            &lt;br />
+                            {`${user.firstName} ${user.lastName} !`}
+                        &lt;/h1>
+                        &lt;button
+                            className="edit-button"
+                            onClick={() => setIsEdit(true)}
+                        >
+                            Edit Name
+                        &lt;/button>
+                    &lt;/div>
+                ) : (
+                    &lt;div className="header">
+                        &lt;h1>Welcome back&lt;/h1>
+                        &lt;input
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            autoComplete="firstName"
+                            value={userInfos.firstName}
+                            placeholder={user.firstName}
+                            onChange={onFieldChange}
+                        />
+                        &lt;input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            autoComplete="lastName"
+                            value={userInfos.lastName}
+                            placeholder={user.lastName}
+                            onChange={onFieldChange}
+                        />
+                        &lt;button
+                            className="save-button"
+                            onClick={saveChangeName}
+                        >
+                            Save
+                        &lt;/button>
+                        &lt;button
+                            className="cancel-button"
+                            onClick={() => setIsEdit(false)}
+                        >
+                            Cancel
+                        &lt;/button>
+                    &lt;/div>
+                )}
+                &lt;h2 className="sr-only">Accounts&lt;/h2>
+                &lt;section className="account">
+                    &lt;div className="account-content-wrapper">
+                        &lt;h3 className="account-title">
+                            Argent Bank Checking (x8349)
+                        &lt;/h3>
+                        &lt;p className="account-amount">$2,082.79&lt;/p>
+                        &lt;p className="account-amount-description">
+                            Available Balance
+                        &lt;/p>
+                    &lt;/div>
+                    &lt;div className="account-content-wrapper cta">
+                        &lt;button className="transaction-button">
+                            View transactions
+                        &lt;/button>
+                    &lt;/div>
+                &lt;/section>
+                &lt;section className="account">
+                    &lt;div className="account-content-wrapper">
+                        &lt;h3 className="account-title">
+                            Argent Bank Savings (x6712)
+                        &lt;/h3>
+                        &lt;p className="account-amount">$10,928.42&lt;/p>
+                        &lt;p className="account-amount-description">
+                            Available Balance
+                        &lt;/p>
+                    &lt;/div>
+                    &lt;div className="account-content-wrapper cta">
+                        &lt;button className="transaction-button">
+                            View transactions
+                        &lt;/button>
+                    &lt;/div>
+                &lt;/section>
+                &lt;section className="account">
+                    &lt;div className="account-content-wrapper">
+                        &lt;h3 className="account-title">
+                            Argent Bank Credit Card (x8349)
+                        &lt;/h3>
+                        &lt;p className="account-amount">$184.30&lt;/p>
+                        &lt;p className="account-amount-description">
+                            Current Balance
+                        &lt;/p>
+                    &lt;/div>
+                    &lt;div className="account-content-wrapper cta">
+                        &lt;button className="transaction-button">
+                            View transactions
+                        &lt;/button>
+                    &lt;/div>
+                &lt;/section>
+            &lt;/main>
+        &lt;/>
+    )
+}
+export default Profile
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

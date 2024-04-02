@@ -1,0 +1,201 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> pages/Home/index.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">SportSee App - Documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Components</h2><h3>Components</h3><ul><li><a href="FieldError.html">FieldError</a></li><li><a href="Layout.html">Layout</a></li></ul></div><div class="category"><h2>Layout</h2><h3>Components</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Components</h3><ul><li><a href="ErrorPage.html">ErrorPage</a></li><li><a href="Home.html">Home</a></li><li><a href="Login.html">Login</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>Redux Reducer</h2><h3>Namespaces</h3><ul><li><a href="userInfosSlice.html">userInfosSlice</a></li></ul></div><div class="category"><h2>Redux Selector</h2><h3>Global</h3><ul><li><a href="global.html#selectRememberUser">selectRememberUser</a></li><li><a href="global.html#selectTokenUser">selectTokenUser</a></li><li><a href="global.html#selectUserInfos">selectUserInfos</a></li></ul></div><div class="category"><h2>Redux Slice</h2><h3>Namespaces</h3><ul><li><a href="userInfosSlice.html">userInfosSlice</a></li></ul></div><div class="category"><h2>Services</h2><h3>Namespaces</h3><ul><li><a href="ApiService.html">ApiService</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>pages/Home/index.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import iconChat from '../../assets/icons/icon-chat.png'
+import iconMoney from '../../assets/icons/icon-money.png'
+import iconSecurity from '../../assets/icons/icon-security.png'
+
+/**
+ * Component representing the home page of Argent Bank.
+ *
+ * This component renders information about the bank's features and services.
+ *
+ * @category Pages
+ * @component
+ * @returns  { JSX.Element } A React element representing the home page.
+ */
+function Home() {
+    document.title = 'Argent Bank - Home'
+    return (
+        &lt;>
+            &lt;main>
+                &lt;div className="hero">
+                    &lt;section className="hero-content">
+                        &lt;h2 className="sr-only">Promoted Content&lt;/h2>
+                        &lt;p className="subtitle">No fees.&lt;/p>
+                        &lt;p className="subtitle">No minimum deposit.&lt;/p>
+                        &lt;p className="subtitle">High interest rates.&lt;/p>
+                        &lt;p className="text">
+                            Open a savings account with Argent Bank today!
+                        &lt;/p>
+                    &lt;/section>
+                &lt;/div>
+                &lt;section className="features">
+                    &lt;h2 className="sr-only">Features&lt;/h2>
+                    &lt;div className="feature-item">
+                        &lt;img
+                            src={iconChat}
+                            alt="Chat Icon"
+                            className="feature-icon"
+                        />
+                        &lt;h3 className="feature-item-title">
+                            You are our #1 priority
+                        &lt;/h3>
+                        &lt;p>
+                            Need to talk to a representative? You can get in
+                            touch through our 24/7 chat or through a phone call
+                            in less than 5 minutes.
+                        &lt;/p>
+                    &lt;/div>
+                    &lt;div className="feature-item">
+                        &lt;img
+                            src={iconMoney}
+                            alt="Chat Icon"
+                            className="feature-icon"
+                        />
+                        &lt;h3 className="feature-item-title">
+                            More savings means higher rates
+                        &lt;/h3>
+                        &lt;p>
+                            The more you save with us, the higher your interest
+                            rate will be!
+                        &lt;/p>
+                    &lt;/div>
+                    &lt;div className="feature-item">
+                        &lt;img
+                            src={iconSecurity}
+                            alt="Chat Icon"
+                            className="feature-icon"
+                        />
+                        &lt;h3 className="feature-item-title">
+                            Security you can trust
+                        &lt;/h3>
+                        &lt;p>
+                            We use top of the line encryption to make sure your
+                            data and money is always safe.
+                        &lt;/p>
+                    &lt;/div>
+                &lt;/section>
+            &lt;/main>
+        &lt;/>
+    )
+}
+export default Home
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

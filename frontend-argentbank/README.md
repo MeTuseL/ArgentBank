@@ -1,70 +1,181 @@
-# Getting Started with Create React App
+![ArgentBank](/ArgentBank/frontend-argentbank/src/assets/logo/argentBankLogo.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Argent Bank
 
-## Available Scripts
+[Lien du site](https://metusel.github.io/ArgentBank/) - <a href="#description-en-français">README en Français</a> - <a href="#description-in-english">README en Anglais</a>
 
-In the project directory, you can run:
+## Description en Français
 
-### `npm start`
+## 1. Présentation du projet
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Projet réalisé dans le cadre du programme de formation Développeur Front-end JavaScript React chez [OpenClassrooms](https://openclassrooms.com/fr/paths/877-developpeur-dapplication-javascript-react).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+> #### 1.1 Objectif :
+>
+> -   Développer une application bancaire en utilisant React et Redux pour créer une expérience utilisateur dynamique et réactive.
+>
+> #### 1.2 Compétences évaluées :
+>
+> -   S'authentifier à une API
+> -   Implémenter un gestionnaire d'état dans une application React
+> -   Intéragir avec une API
+> -   Modéliser une API
 
-### `npm test`
+## 2. Contraintes
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2.1 Fonctionnelles :
 
-### `npm run build`
+> -   Respect de la charte graphique de la maquette (voir : <a href="#51-maquette"> 5.1 maquette </a>)
+> -   Le projet doit être responsive.
+> -   Réaliser un Swagger représentant la fonctionnalité pour les transactions (voir : <a href="#52-swagger">5.2 swagger </a>)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2.2 Techniques :
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+> -   Séparation logique du code dans des composants réutilisables.
+> -   Utilisation de Rédux pour gérer les données de l'application
+> -   Gestion des appels HTTP, utilisant des bibliothèques comme Fetch ou Axios pour interagir avec le back-end et récupérer les données nécessaires.
+>     -   Création de services pour gérer les appels en dehors des composants React.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 3. Lancement du projet :
 
-### `npm run eject`
+### 3.1 Prérequis :
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+> -   [Git](https://git-scm.com)
+> -   [Node](https://nodejs.org/en/) pour les commandes npm ou [Yarn](https://yarnpkg.com/) pour les commandes yarn
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3.2 Dépendances :
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+> -   [React](https://reactjs.org): ^18.2.0
+> -   [React-router-dom](https://reactrouter.com/): ^6.22.3
+> -   `npm i react-router-dom` ou `yarn add react-router-dom`
+> -   [react-redux](https://react-redux.js.org/): ^9.1.0
+> -   `npm i react-redux` ou `yarn add react-redux`
+> -   [prop-types](https://www.npmjs.com/package/prop-types): ^15.8.1
+> -   `npm i prop-types` ou `yarn add prop-types`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 4. Procédure d'installation :
 
-## Learn More
+Cloner le dépôt :
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+>     git clone https://github.com/MeTuseL/ArgentBank
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 4.1 Configuration du back-end :
 
-### Code Splitting
+-   Suivre les intructions du [README](/ArgentBank/backend-api-argentbank/README.md) dans le dossier "backend-api-argentbank"
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 4.2 Configuration du front-end :
 
-### Analyzing the Bundle Size
+-   Accéder au dossier "frontend-argentbank"
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+-   Installer toutes les dépendances :
 
-### Making a Progressive Web App
+>       npm install ou yarn
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+-   Lancer le front-end :
 
-### Advanced Configuration
+>     npm run start ou yarn run start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Le front-end sera accessible sur le port 3002 :
+`http://localhost:3002/ArgentBank`.
 
-### Deployment
+## 5. Autres :
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 5.1 Maquette
 
-### `npm run build` fails to minify
+-   [Lien vers les maquettes](/ArgentBank/backend-api-argentbank/designs/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 5.2 Swagger
+
+-   [Swagger avec la fonctionnalité des transactions](/ArgentBank/frontend-argentbank/swagger.yaml)
+
+---
+
+![ArgentBank](/ArgentBank/frontend-argentbank/src/assets/logo/argentBankLogo.png)
+
+# Argent Bank
+
+[Website link](https://metusel.github.io/ArgentBank/) - <a href="#description-en-français">README in French</a> - <a href="#description-in-english">README in English</a>
+
+## Description in English
+
+## 1. Project Presentation
+
+Project carried out as part of the JavaScript React Front-end Developer training program at [OpenClassrooms](https://openclassrooms.com/fr/paths/877-developpeur-dapplication-javascript-react).
+
+> #### 1.1 Objective:
+>
+> -   Develop a banking application using React and Redux to create a dynamic and responsive user experience.
+>
+> #### 1.2 Assessed Skills:
+>
+> -   Authenticate to an API
+> -   Implement a state manager in a React application
+> -   Interact with an API
+> -   Model an API
+
+## 2. Constraints
+
+### 2.1 Functional:
+
+> -   Respect of the graphic charter of the mockup (see: <a href="#51-maquette"> 5.1 mockup </a>)
+> -   The project must be responsive.
+> -   Create a Swagger representing the transaction functionality (see: <a href="#52-swagger">5.2 swagger </a>)
+
+### 2.2 Technical:
+
+> -   Logical separation of code into reusable components.
+> -   Use Redux to manage application data
+> -   Handling HTTP calls, using libraries like Fetch or Axios to interact with the back-end and retrieve necessary data.
+>     -   Creating services to handle calls outside of React components.
+
+## 3. Project Launch:
+
+### 3.1 Prerequisites:
+
+> -   [Git](https://git-scm.com)
+> -   [Node](https://nodejs.org/en/) for npm commands or [Yarn](https://yarnpkg.com/) for yarn commands
+
+### 3.2 Dependencies:
+
+> -   [React](https://reactjs.org): ^18.2.0
+> -   [React-router-dom](https://reactrouter.com/): ^6.22.3
+> -   `npm i react-router-dom` or `yarn add react-router-dom`
+> -   [react-redux](https://react-redux.js.org/): ^9.1.0
+> -   `npm i react-redux` or `yarn add react-redux`
+> -   [prop-types](https://www.npmjs.com/package/prop-types): ^15.8.1
+> -   `npm i prop-types` or `yarn add prop-types`
+
+## 4. Installation Procedure:
+
+Clone the repository:
+
+>     git clone https://github.com/MeTuseL/ArgentBank
+
+### 4.1 Back-end Configuration:
+
+-   Follow the instructions in the [README](/ArgentBank/backend-api-argentbank/README.md) in the "backend-api-argentbank" folder.
+
+### 4.2 Front-end Configuration:
+
+-   Access the "frontend-argentbank" folder
+
+-   Install all dependencies:
+
+>       npm install or yarn
+
+-   Launch the front-end:
+
+>     npm run start or yarn run start
+
+The front-end will be accessible on port 3002:
+`http://localhost:3002/ArgentBank`.
+
+## 5. Other:
+
+### 5.1 Mockup
+
+-   [Link to the mockups](/ArgentBank/backend-api-argentbank/designs/)
+
+### 5.2 Swagger
+
+-   [Swagger with transaction functionality](/ArgentBank/frontend-argentbank/swagger.yaml)

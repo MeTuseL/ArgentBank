@@ -10,6 +10,16 @@ import {
     rememberUser,
 } from '../../__features__/userInfos'
 
+/**
+ * Component representing a login page.
+ *
+ *  This component allows users to log in with their username and password.
+ * It handles form submission, field validation, and 'remember me' functionality.
+ *
+ * @category Pages
+ * @component
+ * @returns  { JSX.Element } A React element that renders a login page.
+ */
 function Login() {
     document.title = 'Argent Bank - Login'
     const userRemember = useSelector(selectRememberUser)
@@ -21,12 +31,15 @@ function Login() {
     const [msgErrorPassword, setMsgErrorPassword] = useState('')
     const [msgErrorUser, setMsgErrorUser] = useState('')
     const [isChecked, setISChecked] = useState(false)
+    const [shouldUpdate, setSouldUpdate] = useState(true)
 
-    //control field
-    const reEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+    // Function to control email format
     const controlEmail = (email) => {
+        // Regex pattern for email validation
+        const reEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
         return reEmail.test(email)
     }
+    // Function to control username format
     const constrolUsername = (username) => {
         if (username === '') {
             setMsgErrorUsername('Empty fields.')
@@ -37,6 +50,7 @@ function Login() {
         }
         return true
     }
+    // Function to control password format
     const controlPassword = (password) => {
         if (password === '') {
             setMsgErrorPassword('Empty fields.')
@@ -44,18 +58,17 @@ function Login() {
         }
         return true
     }
-    //onsubmit login
+    // Function to handle login submission
     const login = (e) => {
         e.preventDefault()
         setMsgErrorUsername('')
         setMsgErrorPassword('')
         setMsgErrorUser('')
-
+        // Fetch data if the username and password are correct; otherwise, display an error message.
         if (
-            (constrolUsername(userInfos.username) &&
-                controlPassword(userInfos.password)) === true
+            constrolUsername(userInfos.username) &&
+            controlPassword(userInfos.password)
         ) {
-            //api service
             apiService
                 .loginUser(userInfos)
                 .then((token) => {
@@ -66,12 +79,11 @@ function Login() {
                     } else {
                         dispatch(tokenUser(token.success))
                         dispatch(rememberUser(isChecked))
-
                         apiService
                             .readProfileUser(token.success.token)
                             .then((dataUser) => {
+                                // Store email of user for 'remember me'
                                 localStorage.setItem(
-                                    //storing email user
                                     'username',
                                     JSON.stringify(dataUser.success.email)
                                 )
@@ -87,15 +99,19 @@ function Login() {
             controlPassword(userInfos.password)
         }
     }
-    //onchange field
+    // Function to handle field changes
     const onFieldChange = (e) => {
         const { name, value } = e.target
         const userInfos_ = { ...userInfos }
         userInfos_[name] = value
         setUserInfos(userInfos_)
     }
-    //remember me
-    const [shouldUpdate, setSouldUpdate] = useState(true)
+    // Function to handle 'remember me' checkbox
+    const onChecked = (e) => {
+        const { checked } = e.target
+        setISChecked(checked)
+    }
+    // Retrieve the username stored in local storage for the 'remember me' functionality
     useEffect(() => {
         if (shouldUpdate) {
             const saveUser = localStorage.getItem('username')
@@ -108,11 +124,6 @@ function Login() {
             }
         }
     }, [userRemember, userInfos, shouldUpdate])
-
-    const onChecked = (e) => {
-        const { checked } = e.target
-        setISChecked(checked)
-    }
 
     return (
         <>

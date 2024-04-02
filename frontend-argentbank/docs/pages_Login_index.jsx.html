@@ -1,0 +1,305 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> pages/Login/index.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">SportSee App - Documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Components</h2><h3>Components</h3><ul><li><a href="FieldError.html">FieldError</a></li><li><a href="Layout.html">Layout</a></li></ul></div><div class="category"><h2>Layout</h2><h3>Components</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Components</h3><ul><li><a href="ErrorPage.html">ErrorPage</a></li><li><a href="Home.html">Home</a></li><li><a href="Login.html">Login</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>Redux Reducer</h2><h3>Namespaces</h3><ul><li><a href="userInfosSlice.html">userInfosSlice</a></li></ul></div><div class="category"><h2>Redux Selector</h2><h3>Global</h3><ul><li><a href="global.html#selectRememberUser">selectRememberUser</a></li><li><a href="global.html#selectTokenUser">selectTokenUser</a></li><li><a href="global.html#selectUserInfos">selectUserInfos</a></li></ul></div><div class="category"><h2>Redux Slice</h2><h3>Namespaces</h3><ul><li><a href="userInfosSlice.html">userInfosSlice</a></li></ul></div><div class="category"><h2>Services</h2><h3>Namespaces</h3><ul><li><a href="ApiService.html">ApiService</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>pages/Login/index.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useEffect, useState } from 'react'
+import apiService from '../../__services__/apiService'
+import { useNavigate } from 'react-router-dom'
+import FieldError from '../../components/FieldError'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+    loginUserInfos,
+    tokenUser,
+    selectRememberUser,
+    rememberUser,
+} from '../../__features__/userInfos'
+
+/**
+ * Component representing a login page.
+ *
+ *  This component allows users to log in with their username and password.
+ * It handles form submission, field validation, and 'remember me' functionality.
+ *
+ * @category Pages
+ * @component
+ * @returns  { JSX.Element } A React element that renders a login page.
+ */
+function Login() {
+    document.title = 'Argent Bank - Login'
+    const userRemember = useSelector(selectRememberUser)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [loading, setIsLoading] = useState(false)
+    const [userInfos, setUserInfos] = useState({ username: '', password: '' })
+    const [msgErrorUsername, setMsgErrorUsername] = useState('')
+    const [msgErrorPassword, setMsgErrorPassword] = useState('')
+    const [msgErrorUser, setMsgErrorUser] = useState('')
+    const [isChecked, setISChecked] = useState(false)
+    const [shouldUpdate, setSouldUpdate] = useState(true)
+
+    // Function to control email format
+    const controlEmail = (email) => {
+        // Regex pattern for email validation
+        const reEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+        return reEmail.test(email)
+    }
+    // Function to control username format
+    const constrolUsername = (username) => {
+        if (username === '') {
+            setMsgErrorUsername('Empty fields.')
+            return false
+        } else if (controlEmail(username) === false) {
+            setMsgErrorUsername('Invalid email address.')
+            return false
+        }
+        return true
+    }
+    // Function to control password format
+    const controlPassword = (password) => {
+        if (password === '') {
+            setMsgErrorPassword('Empty fields.')
+            return false
+        }
+        return true
+    }
+    // Function to handle login submission
+    const login = (e) => {
+        e.preventDefault()
+        setMsgErrorUsername('')
+        setMsgErrorPassword('')
+        setMsgErrorUser('')
+        // Fetch data if the username and password are correct; otherwise, display an error message.
+        if (
+            constrolUsername(userInfos.username) &amp;&amp;
+            controlPassword(userInfos.password)
+        ) {
+            apiService
+                .loginUser(userInfos)
+                .then((token) => {
+                    if (token.error) {
+                        setMsgErrorUser(
+                            'Sorry, the email address or password you entered is incorrect. Please check and try again.'
+                        )
+                    } else {
+                        dispatch(tokenUser(token.success))
+                        dispatch(rememberUser(isChecked))
+                        apiService
+                            .readProfileUser(token.success.token)
+                            .then((dataUser) => {
+                                // Store email of user for 'remember me'
+                                localStorage.setItem(
+                                    'username',
+                                    JSON.stringify(dataUser.success.email)
+                                )
+                                dispatch(loginUserInfos(dataUser.success))
+                                navigate('/profile')
+                            })
+                            .finally(() => setIsLoading(true))
+                    }
+                })
+                .finally(() => setIsLoading(false))
+        } else {
+            constrolUsername(userInfos.username)
+            controlPassword(userInfos.password)
+        }
+    }
+    // Function to handle field changes
+    const onFieldChange = (e) => {
+        const { name, value } = e.target
+        const userInfos_ = { ...userInfos }
+        userInfos_[name] = value
+        setUserInfos(userInfos_)
+    }
+    // Function to handle 'remember me' checkbox
+    const onChecked = (e) => {
+        const { checked } = e.target
+        setISChecked(checked)
+    }
+    // Retrieve the username stored in local storage for the 'remember me' functionality
+    useEffect(() => {
+        if (shouldUpdate) {
+            const saveUser = localStorage.getItem('username')
+            if (saveUser &amp;&amp; userRemember.checked === true) {
+                const userInfos_ = { ...userInfos }
+                userInfos_.username = saveUser.replace(/["']/g, '') //regex for remove `"` or `'`
+                setUserInfos(userInfos_)
+                setISChecked(userRemember.checked)
+                setSouldUpdate(false)
+            }
+        }
+    }, [userRemember, userInfos, shouldUpdate])
+
+    return (
+        &lt;>
+            {loading === true ? (
+                &lt;main className="main bg-dark">
+                    &lt;section className="sign-in-content">
+                        &lt;h2>Loading...&lt;/h2>
+                    &lt;/section>
+                &lt;/main>
+            ) : (
+                &lt;main className="main bg-dark">
+                    &lt;section className="sign-in-content">
+                        &lt;i className="fa fa-user-circle sign-in-icon">&lt;/i>
+                        &lt;h1>Sign In&lt;/h1>
+                        &lt;form onSubmit={login}>
+                            &lt;div className="input-wrapper">
+                                &lt;label htmlFor="username">Username&lt;/label>
+                                &lt;input
+                                    type="text"
+                                    id="username"
+                                    name="username"
+                                    autoComplete="username"
+                                    value={userInfos.username}
+                                    onChange={onFieldChange}
+                                />
+                                &lt;FieldError message={msgErrorUsername} />
+                            &lt;/div>
+                            &lt;div className="input-wrapper">
+                                &lt;label htmlFor="password">Password&lt;/label>
+                                &lt;input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    autoComplete="current-password"
+                                    value={userInfos.password}
+                                    onChange={onFieldChange}
+                                />
+                                &lt;FieldError message={msgErrorPassword} />
+                            &lt;/div>
+                            &lt;div className="input-remember">
+                                &lt;input
+                                    type="checkbox"
+                                    id="remember-me"
+                                    checked={isChecked}
+                                    onChange={onChecked}
+                                />
+                                &lt;label htmlFor="remember-me">Remember me&lt;/label>
+                            &lt;/div>
+                            &lt;FieldError message={msgErrorUser} />
+                            &lt;button className="sign-in-button">Sign In&lt;/button>
+                        &lt;/form>
+                    &lt;/section>
+                &lt;/main>
+            )}
+        &lt;/>
+    )
+}
+export default Login
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>
