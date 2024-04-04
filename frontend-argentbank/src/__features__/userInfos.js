@@ -124,7 +124,6 @@ export const userInfosSlice = createSlice({
          * @param {Object} action - Redux action object.
          */
         rememberUser: (state, action) => {
-            console.log(action.payload)
             state.remember = {
                 ...state.remember,
                 checked: action.payload,

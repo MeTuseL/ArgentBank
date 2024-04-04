@@ -49,7 +49,6 @@ function Profile() {
         setUserInfos(userInfos_)
     }
 
-    console.log(user)
     return (
         <>
             <main className="main bg-dark">
