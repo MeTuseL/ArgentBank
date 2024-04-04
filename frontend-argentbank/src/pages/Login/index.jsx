@@ -79,14 +79,16 @@ function Login() {
                     } else {
                         dispatch(tokenUser(token.success))
                         dispatch(rememberUser(isChecked))
+                        if (isChecked) {
+                            // Store email of user for 'remember me'
+                            localStorage.setItem(
+                                'username',
+                                JSON.stringify(userInfos.username)
+                            )
+                        }
                         apiService
                             .readProfileUser(token.success.token)
                             .then((dataUser) => {
-                                // Store email of user for 'remember me'
-                                localStorage.setItem(
-                                    'username',
-                                    JSON.stringify(dataUser.success.email)
-                                )
                                 dispatch(loginUserInfos(dataUser.success))
                                 navigate('/profile')
                             })
@@ -109,6 +111,9 @@ function Login() {
     // Function to handle 'remember me' checkbox
     const onChecked = (e) => {
         const { checked } = e.target
+        if (!checked && localStorage.getItem('username')) {
+            localStorage.removeItem('username')
+        }
         setISChecked(checked)
     }
     // Retrieve the username stored in local storage for the 'remember me' functionality
