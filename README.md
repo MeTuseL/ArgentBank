@@ -2,7 +2,7 @@
 
 # Argent Bank
 
-[Lien du site](https://metusel.github.io/ArgentBank/) - <a href="#description-en-français">README en Français</a> - <a href="#description-in-english">README en Anglais</a>
+- <a href="#description-en-français">README en Français</a> - <a href="#description-in-english">README en Anglais</a>
 
 ## Description en Français
 
@@ -94,7 +94,7 @@ Le front-end sera accessible sur le port 3002 :
 
 # Argent Bank
 
-[Website link](https://metusel.github.io/ArgentBank/) - <a href="#description-en-français">README in French</a> - <a href="#description-in-english">README in English</a>
+- <a href="#description-en-français">README in French</a> - <a href="#description-in-english">README in English</a>
 
 ## Description in English
 
